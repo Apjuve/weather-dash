@@ -69,5 +69,13 @@ function fiveDayForecast (url) {
         var date = url.daily[i + 1].dt;
         var momentConvert = moment.unix(date).format("MM/DD/YYYY");
         weeklyDate[i].textContent = momentConvert;
+        var icon = url.daily[i].weather[0].icon;
+        weeklyIcon[i].setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+        var temp = url.daily[i].temp.max;
+        weeklyTemp[i].textContent = "Temp: " + temp;
+        var wind = url.daily[i].wind_speed;
+        weeklyWind[i].textContent = "Wind: " + wind + "Mph";
+        var humidity = url.daily[i].humidity;
+        weeklyHumidity[i].textContent = "Humidity: " + humidity;
     }
 }
