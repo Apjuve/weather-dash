@@ -24,7 +24,6 @@ searchButton.addEventListener("click", function(){
         })
         .then(function(data) {
             console.log(data);
-            console.log(data.coord);
             var longtitudeCoord = data.coord.lon;
             var latitudeCoord = data.coord.lat;
             var currentWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitudeCoord + "&lon=" + longtitudeCoord + "&units=imperial&appid=bcf6554b28b8c3bcc30e90eb27275f00";
@@ -39,7 +38,7 @@ searchButton.addEventListener("click", function(){
                 var city = data.name;
                 var icon = currenti.current.weather[0].icon;
                 currentWeather.textContent = `${city}: (${date})`;
-                weatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+                weatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
                 weatherIcon.setAttribute("alt", currenti.current.weather[0].description);
 
                 var temp = currenti.current.temp;
@@ -51,13 +50,25 @@ searchButton.addEventListener("click", function(){
                 var windSpeed = currenti.current.wind_speed;
                 currentWindSpeed.textContent = "Wind Speed: " + windSpeed + " Mph";
                 uv = currenti.current.uvi;
-                if ( uv >= 0 || uv <= 2.99) {
+                if ( uv >= 0 && uv <= 2.99) {
                     currentUV.classList.add("low");
-                } else if (uv >= 3 || uv <= 5.99) {
+                    currentUV.classList.remove("moderate");
+                    currentUV.classList.remove("high");
+                    currentUV.classList.remove("very-high");
+                } else if (uv >= 3 && uv <= 5.99) {
+                    currentUV.classList.remove("low");
+                    currentUV.classList.remove("high");
+                    currentUV.classList.remove("very-high");
                     currentUV.classList.add("moderate");
-                } else if (uv >= 6 || uv <= 7.99) {
+                } else if (uv >= 6 && uv <= 7.99) {
+                    currentUV.classList.remove("low");
+                    currentUV.classList.remove("moderate");
+                    currentUV.classList.remove("very-high");
                     currentUV.classList.add("high");
                 } else {
+                    currentUV.classList.remove("low");
+                    currentUV.classList.remove("moderate");
+                    currentUV.classList.remove("high");
                     currentUV.classList.add("very-high");
                 }
 
@@ -87,7 +98,7 @@ function fiveDayForecast (url) {
         var momentConvert = moment.unix(date).format("MM/DD/YYYY");
         weeklyDate[i].textContent = momentConvert;
         var icon = url.daily[i].weather[0].icon;
-        weeklyIcon[i].setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+        weeklyIcon[i].setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
         var temp = url.daily[i].temp.max;
         weeklyTemp[i].textContent = "Temp: " + temp;
         var wind = url.daily[i].wind_speed;
@@ -131,7 +142,6 @@ fetch(cityWeatherURL)
     })
     .then(function(data) {
         console.log(data);
-        console.log(data.coord);
         var longtitudeCoord = data.coord.lon;
         var latitudeCoord = data.coord.lat;
         var currentWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitudeCoord + "&lon=" + longtitudeCoord + "&units=imperial&appid=bcf6554b28b8c3bcc30e90eb27275f00";
@@ -145,7 +155,7 @@ fetch(cityWeatherURL)
             var city = data.name;
             var icon = currenti.current.weather[0].icon;
             currentWeather.textContent = `${city}: (${date})`;
-            weatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+            weatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
             weatherIcon.setAttribute("alt", currenti.current.weather[0].description);
             var temp = currenti.current.temp;
             currentTemp.textContent = `Temperature: ${temp} \u00B0F`;
@@ -154,13 +164,25 @@ fetch(cityWeatherURL)
             var windSpeed = currenti.current.wind_speed;
             currentWindSpeed.textContent = "Wind Speed: " + windSpeed + " Mph";
             uv = currenti.current.uvi;
-            if ( uv >= 0 || uv <= 2.99) {
+            if ( uv >= 0 && uv <= 2.99) {
                 currentUV.classList.add("low");
-            } else if (uv >= 3 || uv <= 5.99) {
+                currentUV.classList.remove("moderate");
+                    currentUV.classList.remove("high");
+                    currentUV.classList.remove("very-high");
+            } else if (uv >= 3 && uv <= 5.99) {
+                currentUV.classList.remove("low");
+                    currentUV.classList.remove("high");
+                    currentUV.classList.remove("very-high");
                 currentUV.classList.add("moderate");
-            } else if (uv >= 6 || uv <= 7.99) {
+            } else if (uv >= 6 && uv <= 7.99) {
+                currentUV.classList.remove("low");
+                    currentUV.classList.remove("moderate");
+                    currentUV.classList.remove("very-high");
                 currentUV.classList.add("high");
             } else {
+                currentUV.classList.remove("low");
+                    currentUV.classList.remove("moderate");
+                    currentUV.classList.remove("high");
                 currentUV.classList.add("very-high");
             }
 
