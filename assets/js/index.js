@@ -3,6 +3,10 @@ var cityInput = document.querySelector("#city-input");
 var currentWeather = document.querySelector("#current-weather");
 var currentTemp = document.querySelector("#current-temp");
 var weatherIcon = document.querySelector("#weather-icon");
+var currenthumidity = document.querySelector("#current-humidity");
+var currentWindSpeed = document.querySelector("#current-wind");
+var currentUV = document.querySelector("#current-uv");
+
 
 
 searchButton.addEventListener("click", function(){
@@ -31,8 +35,17 @@ searchButton.addEventListener("click", function(){
                 currentWeather.textContent = `${city}: (${date})`;
                 weatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
                 weatherIcon.setAttribute("alt", currenti.current.weather[0].description);
+                
                 var temp = currenti.current.temp;
                 currentTemp.textContent = `Temperature: ${temp} \u00B0F`;
+
+                var humidity = currenti.current.humidity;
+                currenthumidity.textContent ="Humidity: " +  humidity + "%";
+
+                var windSpeed = currenti.current.wind_speed;
+                currentWindSpeed.textContent = "Wind Speed: " + windSpeed + " Mph";
+                uv = currenti.current.uvi;
+                currentUV.textContent = "UV index: " + uv;
 
             })
         })
