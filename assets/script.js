@@ -1,33 +1,35 @@
-var searchButton = document.querySelector("#search-button");
-var cityInput = document.querySelector("#city-input");
-var currentWeather = document.querySelector("#current-weather");
-var currentTemp = document.querySelector("#current-temp");
-var weatherIcon = document.querySelector("#weather-icon");
-var currenthumidity = document.querySelector("#current-humidity");
-var currentWindSpeed = document.querySelector("#current-wind");
-var currentUV = document.querySelector("#current-uv");
-var cityNamesList = document.querySelector(".city-name-list");
-var clearBtn = document.querySelector("#clear-button");
-var uvBlock = document.querySelector(".Uv-block");
+        var searchButton = document.querySelector("#search-button");
+        var cityInput = document.querySelector("#city-input");
+        var currentWeather = document.querySelector("#current-weather");
+        var currentTemp = document.querySelector("#current-temp");
+        var weatherIcon = document.querySelector("#weather-icon");
+        var currenthumidity = document.querySelector("#current-humidity");
+        var currentWindSpeed = document.querySelector("#current-wind");
+        var currentUV = document.querySelector("#current-uv");
+        var cityNamesList = document.querySelector(".city-name-list");
+        var clearBtn = document.querySelector("#clear-button");
+        var uvBlock = document.querySelector(".Uv-block");
 
 
 
 
 searchButton.addEventListener("click", function(){
-    var cityChoice = cityInput.value;
+       var cityChoice = cityInput.value;
 
     makeCityList(cityInput.value);
 
-    var cityWeatherURL  = "https://api.openweathermap.org/data/2.5/weather?q=" + cityChoice + "&limit=1&appid=bcf6554b28b8c3bcc30e90eb27275f00";
+        var cityWeatherURL  = "https://api.openweathermap.org/data/2.5/weather?q=" + cityChoice + "&limit=1&appid=bcf6554b28b8c3bcc30e90eb27275f00";
     fetch(cityWeatherURL)
         .then(function (response) {
             return response.json();
         })
         .then(function(data) {
+
             console.log(data);
-            var longtitudeCoord = data.coord.lon;
-            var latitudeCoord = data.coord.lat;
-            var currentWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitudeCoord + "&lon=" + longtitudeCoord + "&units=imperial&appid=bcf6554b28b8c3bcc30e90eb27275f00";
+
+         var longtitudeCoord = data.coord.lon;
+         var latitudeCoord = data.coord.lat;
+         var currentWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitudeCoord + "&lon=" + longtitudeCoord + "&units=imperial&appid=bcf6554b28b8c3bcc30e90eb27275f00";
             fetch(currentWeatherUrl)
             .then(function(response) {
                 return response.json();
@@ -35,20 +37,20 @@ searchButton.addEventListener("click", function(){
 
             .then(function(currenti) {
                 console.log(currenti);
-                var date = moment.unix(currenti.current.dt).format("MM/DD/YYYY");
-                var city = data.name;
-                var icon = currenti.current.weather[0].icon;
+         var date = moment.unix(currenti.current.dt).format("MM/DD/YYYY");
+         var city = data.name;
+         var icon = currenti.current.weather[0].icon;
                 currentWeather.textContent = `${city}: (${date})`;
                 weatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
                 weatherIcon.setAttribute("alt", currenti.current.weather[0].description);
 
-                var temp = currenti.current.temp;
+         var temp = currenti.current.temp;
                 currentTemp.textContent = `Temperature: ${temp} \u00B0F`;
 
-                var humidity = currenti.current.humidity;
+         var humidity = currenti.current.humidity;
                 currenthumidity.textContent ="Humidity: " +  humidity + "%";
 
-                var windSpeed = currenti.current.wind_speed;
+         var windSpeed = currenti.current.wind_speed;
                 currentWindSpeed.textContent = "Wind Speed: " + windSpeed + " Mph";
                 uv = currenti.current.uvi;
                 if ( uv >= 0 && uv <= 2.99) {
@@ -82,19 +84,19 @@ searchButton.addEventListener("click", function(){
         })    
 }) 
 
-var weeklyWeatherBlocks = document.querySelectorAll(".weekly-weather");
-var weeklyDate = document.querySelectorAll(".weekly-date");
-var weeklyIcon = document.querySelectorAll(".weekly-image");
-var weeklyTemp = document.querySelectorAll(".weekly-temp");
-var weeklyWind = document.querySelectorAll(".weekly-wind");
-var weeklyHumidity = document.querySelectorAll(".weekly-humidity");
+         var weeklyWeatherBlocks = document.querySelectorAll(".weekly-weather");
+         var weeklyDate = document.querySelectorAll(".weekly-date");
+         var weeklyIcon = document.querySelectorAll(".weekly-image");
+         var weeklyTemp = document.querySelectorAll(".weekly-temp");
+         var weeklyWind = document.querySelectorAll(".weekly-wind");
+         var weeklyHumidity = document.querySelectorAll(".weekly-humidity");
 
 
 function fiveDayForecast (url) {
 
 
 
-    for (var i = 0; i < weeklyWeatherBlocks.length; i++) {
+for (var i = 0; i < weeklyWeatherBlocks.length; i++) {
         // weeklyDate[i].textContent = url.daily[i].dt;
         var date = url.daily[i + 1].dt;
         var momentConvert = moment.unix(date).format("MM/DD/YYYY");
@@ -112,12 +114,12 @@ function fiveDayForecast (url) {
 
 
 function makeCityList (input) {
-    var createdRow = document.createElement("div");
+       var createdRow = document.createElement("div");
     createdRow.setAttribute("class", "row");
-    var createdContainer = document.createElement("div");
+       var createdContainer = document.createElement("div");
     createdContainer.setAttribute("class", "container");
     createdContainer.classList.add("text-center");
-    var createdPEl = document.createElement("p");
+       var createdPEl = document.createElement("p");
     createdPEl.textContent = input;
     createdPEl.setAttribute("class", "city-list-style");
     createdContainer.append(createdPEl);
@@ -138,39 +140,39 @@ clearBtn.addEventListener("click", function () {
 
 
 function cityPrevSearch (val) {
-    var cityChoice = val;
+     var cityChoice = val;
 
 makeCityList(val.innerHTML);
 
 
 
-var cityWeatherURL  = "https://api.openweathermap.org/data/2.5/weather?q=" + cityChoice + "&limit=1&appid=bcf6554b28b8c3bcc30e90eb27275f00";
+     var cityWeatherURL  = "https://api.openweathermap.org/data/2.5/weather?q=" + cityChoice + "&limit=1&appid=bcf6554b28b8c3bcc30e90eb27275f00";
 fetch(cityWeatherURL)
     .then(function (response) {
         return response.json();
     })
     .then(function(data) {
         console.log(data);
-        var longtitudeCoord = data.coord.lon;
-        var latitudeCoord = data.coord.lat;
-        var currentWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitudeCoord + "&lon=" + longtitudeCoord + "&units=imperial&appid=bcf6554b28b8c3bcc30e90eb27275f00";
+     var longtitudeCoord = data.coord.lon;
+     var latitudeCoord = data.coord.lat;
+     var currentWeatherUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitudeCoord + "&lon=" + longtitudeCoord + "&units=imperial&appid=bcf6554b28b8c3bcc30e90eb27275f00";
         fetch(currentWeatherUrl)
         .then(function(response) {
             return response.json();
         })
         .then(function(currenti) {
             console.log(currenti);
-            var date = moment.unix(currenti.current.dt).format("MM/DD/YYYY");
-            var city = data.name;
-            var icon = currenti.current.weather[0].icon;
+     var date = moment.unix(currenti.current.dt).format("MM/DD/YYYY");
+     var city = data.name;
+     var icon = currenti.current.weather[0].icon;
             currentWeather.textContent = `${city}: (${date})`;
             weatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
             weatherIcon.setAttribute("alt", currenti.current.weather[0].description);
-            var temp = currenti.current.temp;
+     var temp = currenti.current.temp;
             currentTemp.textContent = `Temperature: ${temp} \u00B0F`;
-            var humidity = currenti.current.humidity;
+     var humidity = currenti.current.humidity;
             currenthumidity.textContent ="Humidity: " +  humidity + "%";
-            var windSpeed = currenti.current.wind_speed;
+     var windSpeed = currenti.current.wind_speed;
             currentWindSpeed.textContent = "Wind Speed: " + windSpeed + " Mph";
             uv = currenti.current.uvi;
             if ( uv >= 0 && uv <= 2.99) {
@@ -204,11 +206,11 @@ fetch(cityWeatherURL)
 }
 
 function saveSearch () {
-    var savedCurrentWeather = currentWeather.textContent;
-    var savedCurrentTemp = currentTemp.textContent;
-    var savedCurrentIcon = weatherIcon.getAttribute("src");
-    var savedCurrentHumidity = currenthumidity.textContent;
-        var savedCurrentWind = currentWindSpeed.textContent;
+       var savedCurrentWeather = currentWeather.textContent;
+       var savedCurrentTemp = currentTemp.textContent;
+       var savedCurrentIcon = weatherIcon.getAttribute("src");
+       var savedCurrentHumidity = currenthumidity.textContent;
+       var savedCurrentWind = currentWindSpeed.textContent;
         var savedCurrentUvi = currentUV.textContent;
         localStorage.setItem("currentWeather",savedCurrentWeather);
         localStorage.setItem("currentIcon",savedCurrentIcon);
@@ -289,4 +291,3 @@ function saveSearch () {
     }
 
     showLastSearch(); 
-
