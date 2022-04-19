@@ -15,6 +15,9 @@
 
 ## Motivation
 
+![Weather-Dash](https://user-images.githubusercontent.com/95586383/163905604-5fe8b4da-3119-4bd3-8d38-fbb8a3932f97.gif)
+
+
 A simple weather app that allows users to input a city and see the current and future weather. 
 The app uses the Open Weather Map API to get the weather information, and it is rendered on the page using JavaScript. 
 The app also allows users to see their previous searches by rendering them in a list below the search bar. When a user clicks on a previous search, they are taken back to the weather information for that city. Users can also click to clear the search history!
